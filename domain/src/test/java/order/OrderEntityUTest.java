@@ -1,10 +1,10 @@
-package com.example.dddpatterns.order;
+package order;
 
-import com.example.dddpatterns.domain.item.entity.AbstractItemEntity;
-import com.example.dddpatterns.domain.item.entity.DrinkItemEntity;
-import com.example.dddpatterns.domain.item.entity.ElectronicItemEntity;
-import com.example.dddpatterns.domain.item.entity.FoodItemEntity;
-import com.example.dddpatterns.domain.order.entity.OrderEntity;
+import item.entity.AbstractItemEntity;
+import item.entity.DrinkItemEntity;
+import item.entity.ElectronicItemEntity;
+import item.entity.FoodItemEntity;
+import order.entity.OrderEntity;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

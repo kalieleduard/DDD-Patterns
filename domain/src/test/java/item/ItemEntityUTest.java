@@ -1,8 +1,8 @@
-package com.example.dddpatterns.item;
+package item;
 
-import com.example.dddpatterns.domain.item.entity.AbstractItemEntity;
-import com.example.dddpatterns.domain.item.entity.ItemCategoryEnum;
-import com.example.dddpatterns.domain.item.factory.ItemFactory;
+import item.entity.AbstractItemEntity;
+import item.entity.ItemCategoryEnum;
+import factory.ItemFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

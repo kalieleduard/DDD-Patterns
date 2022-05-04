@@ -1,6 +1,6 @@
-package com.example.dddpatterns.domain.order.entity;
+package order.entity;
 
-import com.example.dddpatterns.domain.item.entity.AbstractItemEntity;
+import item.entity.AbstractItemEntity;
 import lombok.Getter;
 
 import java.util.List;

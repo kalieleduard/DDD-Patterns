@@ -1,4 +1,4 @@
-package com.example.dddpatterns.domain.item.entity;
+package item.entity;
 
 public class DrinkItemEntity extends AbstractItemEntity {
     public DrinkItemEntity() { }

@@ -1,4 +1,4 @@
-package com.example.dddpatterns.domain.item.entity;
+package item.entity;
 
 public enum ItemCategoryEnum {
     ELECTRONIC(5),

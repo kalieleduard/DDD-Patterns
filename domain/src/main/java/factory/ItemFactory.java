@@ -1,6 +1,6 @@
-package com.example.dddpatterns.domain.item.factory;
+package factory;
 
-import com.example.dddpatterns.domain.item.entity.*;
+import item.entity.*;
 
 import java.util.Objects;
 
