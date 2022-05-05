@@ -2,7 +2,7 @@ package item;
 
 import item.entity.AbstractItemEntity;
 import item.entity.ItemCategoryEnum;
-import factory.ItemFactory;
+import item.factory.ItemFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
