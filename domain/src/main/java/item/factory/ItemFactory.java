@@ -1,18 +1,17 @@
 package item.factory;
 
-import item.exception.ItemNotFoundException;
 import item.entity.*;
 
 public class ItemFactory {
     public static AbstractItemEntity makeItemByType(ItemCategoryEnum itemCategory) {
         switch (itemCategory) {
             case ELECTRONIC:
-                return new ElectronicItemEntity();
+                return new ElectronicItemEntity(ItemID.unique());
             case DRINK:
-                return new DrinkItemEntity();
+                return new DrinkItemEntity(ItemID.unique());
             case FOOD:
-                return new FoodItemEntity();
+                return new FoodItemEntity(ItemID.unique());
         }
-        throw new ItemNotFoundException();
+        throw new IllegalArgumentException();
     }
 }

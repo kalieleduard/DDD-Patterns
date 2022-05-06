@@ -1,18 +1,25 @@
 package item.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import root.AggregateRoot;
 
 @Getter
 @Setter
-@AllArgsConstructor
-public abstract class AbstractItemEntity {
+public abstract class AbstractItemEntity extends AggregateRoot<ItemID> {
     protected String itemName;
     protected double itemPrice;
     protected int amount;
 
-    protected AbstractItemEntity() { }
+    public AbstractItemEntity(ItemID itemID, String itemName, double itemPrice, int amount) {
+        super(itemID);
+        this.itemName = itemName;
+        this.itemPrice = itemPrice;
+        this.amount = amount;
+    }
+
+    public AbstractItemEntity(ItemID itemID) {
+        super(itemID);
+    }
 
     public abstract double calculateTaxes();
 }

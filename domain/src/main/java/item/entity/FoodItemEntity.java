@@ -1,10 +1,12 @@
 package item.entity;
 
 public class FoodItemEntity extends AbstractItemEntity {
-    public FoodItemEntity() { }
+    public FoodItemEntity(ItemID itemID, String itemName, double itemPrice, int amount) {
+        super(itemID, itemName, itemPrice, amount);
+    }
 
-    public FoodItemEntity(String itemName, double itemPrice, int amount) {
-        super(itemName, itemPrice, amount);
+    public FoodItemEntity(ItemID itemID) {
+        super(itemID);
     }
 
     @Override

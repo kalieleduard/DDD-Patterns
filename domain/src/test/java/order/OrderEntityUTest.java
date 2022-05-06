@@ -1,9 +1,6 @@
 package order;
 
-import item.entity.AbstractItemEntity;
-import item.entity.DrinkItemEntity;
-import item.entity.ElectronicItemEntity;
-import item.entity.FoodItemEntity;
+import item.entity.*;
 import order.entity.OrderEntity;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -33,9 +30,9 @@ public class OrderEntityUTest {
 
     private List<AbstractItemEntity> mockItemEntityList() {
         return List.of(
-                new ElectronicItemEntity("Play 2", 200.0, 1),
-                new DrinkItemEntity("Crystal", 2, 1),
-                new FoodItemEntity("Hot Dog", 10, 2)
+                new ElectronicItemEntity(ItemID.unique(), "Play 2", 200.0, 1),
+                new DrinkItemEntity(ItemID.unique(), "Crystal", 2, 1),
+                new FoodItemEntity(ItemID.unique(), "Hot Dog", 10, 2)
         );
     }
 }
