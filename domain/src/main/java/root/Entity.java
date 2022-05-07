@@ -9,4 +9,8 @@ public class Entity<ID extends Identifier> {
         Objects.requireNonNull(id, "'ID' Shouldn't be NULL");
         this.id = id;
     }
+
+    public ID getId() {
+        return this.id;
+    }
 }

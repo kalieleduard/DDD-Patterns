@@ -1,6 +1,7 @@
 package item.entity;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 import root.AggregateRoot;
 
 @Getter
@@ -9,16 +10,14 @@ public abstract class AbstractItemEntity extends AggregateRoot<ItemID> {
     protected String itemName;
     protected double itemPrice;
     protected int amount;
+    protected ItemCategoryEnum itemCategory;
 
-    public AbstractItemEntity(ItemID itemID, String itemName, double itemPrice, int amount) {
+    public AbstractItemEntity(ItemID itemID, String itemName, double itemPrice, int amount, ItemCategoryEnum itemCategory) {
         super(itemID);
         this.itemName = itemName;
         this.itemPrice = itemPrice;
         this.amount = amount;
-    }
-
-    public AbstractItemEntity(ItemID itemID) {
-        super(itemID);
+        this.itemCategory = itemCategory;
     }
 
     public abstract double calculateTaxes();

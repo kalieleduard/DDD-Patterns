@@ -7,8 +7,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.Objects;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ItemEntityUTest {
@@ -22,8 +20,18 @@ public class ItemEntityUTest {
     @Test
     @DisplayName("Should calculate the electronic item tax")
     public void verifyCorrectlyElectronicItemTax() {
-        this.itemEntity = ItemFactory.makeItemByType(ItemCategoryEnum.ELECTRONIC);
-        this.itemEntity.setItemPrice(20);
+        final var expectedItemName = "Playstation 2";
+        final var expectedItemPrice = 20;
+        final var expectedItemAmount = 1;
+        final var expectedItemCategory = ItemCategoryEnum.ELECTRONIC;
+
+        this.itemEntity = ItemFactory.createItem(
+                expectedItemName,
+                expectedItemPrice,
+                expectedItemAmount,
+                expectedItemCategory
+        );
+
         double tax = this.itemEntity.calculateTaxes();
         assertEquals(21, tax);
     }
@@ -31,8 +39,18 @@ public class ItemEntityUTest {
     @Test
     @DisplayName("Should calculate the food item tax")
     public void verifyCorrectlyFoodItemTax() {
-        this.itemEntity = ItemFactory.makeItemByType(ItemCategoryEnum.FOOD);
-        this.itemEntity.setItemPrice(40);
+        final var expectedItemName = "Pasta";
+        final var expectedItemPrice = 40;
+        final var expectedItemAmount = 1;
+        final var expectedItemCategory = ItemCategoryEnum.FOOD;
+
+        this.itemEntity = ItemFactory.createItem(
+                expectedItemName,
+                expectedItemPrice,
+                expectedItemAmount,
+                expectedItemCategory
+        );
+
         double tax = this.itemEntity.calculateTaxes();
         assertEquals(40.8, tax);
     }
@@ -40,25 +58,19 @@ public class ItemEntityUTest {
     @Test
     @DisplayName("Should calculate the drink item tax")
     public void verifyCorrectlyDrinkItemTax() {
-        this.itemEntity = ItemFactory.makeItemByType(ItemCategoryEnum.DRINK);
-        this.itemEntity.setItemPrice(60);
+        final var expectedItemName = "Crystal Water";
+        final var expectedItemPrice = 60;
+        final var expectedItemAmount = 1;
+        final var expectedItemCategory = ItemCategoryEnum.DRINK;
+
+        this.itemEntity = ItemFactory.createItem(
+                expectedItemName,
+                expectedItemPrice,
+                expectedItemAmount,
+                expectedItemCategory
+        );
+
         double tax = this.itemEntity.calculateTaxes();
         assertEquals(60.6, tax);
-    }
-
-    @Test
-    @DisplayName("Should throw a exception when the required item has no values or it's empty")
-    public void shouldThrowAExceptionWhenTheItemIsNull() {
-        String itemType = "null_testable";
-        for (ItemCategoryEnum value : ItemCategoryEnum.values()) {
-            if (itemType.equals(value.toString())) {
-                this.itemEntity = ItemFactory.makeItemByType(value);
-            }
-        }
-
-        final var exception = new IllegalArgumentException();
-
-        assertTrue(Objects.isNull(this.itemEntity));
-        assertThrows(exception.getClass(), () -> ItemFactory.makeItemByType(ItemCategoryEnum.valueOf(itemType)));
     }
 }
