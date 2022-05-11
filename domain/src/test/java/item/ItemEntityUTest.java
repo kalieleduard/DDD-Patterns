@@ -1,14 +1,17 @@
 package item;
 
+import exceptions.DomainException;
 import item.entity.AbstractItemEntity;
 import item.entity.ItemCategoryEnum;
 import item.factory.ItemFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import validation.handler.ThrowsValidationHandler;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@SuppressWarnings("ConstantConditions")
 public class ItemEntityUTest {
     private AbstractItemEntity itemEntity;
 
@@ -34,6 +37,13 @@ public class ItemEntityUTest {
 
         double tax = this.itemEntity.calculateTaxes();
         assertEquals(21, tax);
+        assertNotNull(this.itemEntity);
+        assertNotNull(this.itemEntity.getItemName());
+        assertNotNull(this.itemEntity.getItemCategory());
+        assertEquals(expectedItemName, this.itemEntity.getItemName());
+        assertEquals(expectedItemPrice, this.itemEntity.getItemPrice());
+        assertEquals(expectedItemAmount, this.itemEntity.getAmount());
+        assertEquals(expectedItemCategory, this.itemEntity.getItemCategory());
     }
 
     @Test
@@ -72,5 +82,29 @@ public class ItemEntityUTest {
 
         double tax = this.itemEntity.calculateTaxes();
         assertEquals(60.6, tax);
+    }
+
+    @Test
+    @DisplayName("Should throws an error when given a NULL item name")
+    public void verifyInvalidItemName() {
+        final String expectedItemName = null;
+        final var expectedItemPrice = 20;
+        final var expectedItemAmount = 1;
+        final var expectedItemCategory = ItemCategoryEnum.ELECTRONIC;
+        final var expectedErrorMessage = "Item name shouldn't be NULL";
+        final var expectedErrorCount = 1;
+
+        this.itemEntity = ItemFactory.createItem(
+                expectedItemName,
+                expectedItemPrice,
+                expectedItemAmount,
+                expectedItemCategory
+        );
+
+        final var actualException = assertThrows(DomainException.class,
+                () -> this.itemEntity.validate(new ThrowsValidationHandler()));
+
+        assertEquals(expectedErrorMessage, actualException.getErrors().get(0).getMessage());
+        assertEquals(expectedErrorCount, actualException.getErrors().size());
     }
 }
