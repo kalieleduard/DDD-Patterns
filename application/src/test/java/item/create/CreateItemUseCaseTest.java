@@ -14,9 +14,12 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Objects;
 
 import static org.mockito.AdditionalAnswers.returnsFirstArg;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
 
+@SuppressWarnings("ConstantConditions")
 @ExtendWith(MockitoExtension.class)
-public class CreateCategoryUseCaseTest {
+public class CreateItemUseCaseTest {
 
     @InjectMocks
     private DefaultCreateItemUseCase useCase;
@@ -39,19 +42,44 @@ public class CreateCategoryUseCaseTest {
                 expectedCategory
         );
 
-        Mockito.when(itemGateway.create(Mockito.any()))
+        Mockito.when(itemGateway.create(any()))
                 .thenAnswer(returnsFirstArg());
 
-        final var actualOutput = useCase.execute(aCommand);
+        final var actualOutput = useCase.execute(aCommand).get();
 
         Assertions.assertNotNull(actualOutput);
         Assertions.assertNotNull(actualOutput.getItemID());
 
-        Mockito.verify(itemGateway, Mockito.times(1))
+        Mockito.verify(itemGateway, times(1))
                 .create(Mockito.argThat(anItem ->
                         Objects.nonNull(anItem.getId())
                                 && Objects.equals(expectedItemName, anItem.getItemName())
                                 && Objects.equals(expectedCategory, anItem.getItemCategory())
                                 && Objects.equals(expectedPrice, anItem.getItemPrice())));
+    }
+
+    @Test
+    @DisplayName("Should throws an Exception when given an invalid item argument")
+    public void verifyInvalidItem() {
+        final String expectedItemName = null;
+        final var expectedAmount = 2;
+        final var expectedPrice = 4.0;
+        final var expectedCategory = ItemCategoryEnum.DRINK;
+        final var expectedErrorCount = 1;
+        final var expectedErrorMessage = "Item name shouldn't be NULL";
+
+        final var aCommand = CreateItemCommand.with(
+                expectedItemName,
+                expectedPrice,
+                expectedAmount,
+                expectedCategory
+        );
+
+        final var notification = useCase.execute(aCommand).getLeft();
+
+        Assertions.assertEquals(expectedErrorCount, notification.getErrors().size());
+        Assertions.assertEquals(expectedErrorMessage, notification.firstError().getMessage());
+
+        Mockito.verify(itemGateway, times(0)).create(any());
     }
 }

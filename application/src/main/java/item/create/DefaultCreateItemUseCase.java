@@ -1,9 +1,14 @@
 package item.create;
 
+import io.vavr.control.Either;
+import item.entity.AbstractItemEntity;
 import item.entity.ItemGateway;
 import item.factory.ItemFactory;
+import validation.handler.Notification;
 
 import java.util.Objects;
+
+import static io.vavr.API.*;
 
 public class DefaultCreateItemUseCase extends CreateItemUseCase {
 
@@ -14,11 +19,13 @@ public class DefaultCreateItemUseCase extends CreateItemUseCase {
     }
 
     @Override
-    public CreateItemOutput execute(final CreateItemCommand aCommand) {
+    public Either<Notification, CreateItemOutput> execute(final CreateItemCommand aCommand) {
         final var aName = aCommand.getName();
         final var aPrice = aCommand.getPrice();
         final var anAmount = aCommand.getAmount();
         final var aCategory = aCommand.getItemCategory();
+
+        final var notification = Notification.create();
 
         final var anItem = ItemFactory.createItem(
                 aName,
@@ -27,6 +34,14 @@ public class DefaultCreateItemUseCase extends CreateItemUseCase {
                 aCategory
         );
 
-        return CreateItemOutput.from(this.itemGateway.create(anItem));
+        anItem.validate(notification);
+
+        return notification.hasErrors() ? Left(notification) :  create(anItem);
+    }
+
+    private Either<Notification, CreateItemOutput> create(final AbstractItemEntity anItem) {
+        return Try(() -> this.itemGateway.create(anItem))
+                .toEither()
+                .bimap(Notification::create, CreateItemOutput::from);
     }
 }

@@ -12,11 +12,13 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Objects;
 import java.util.Optional;
 
 import static org.mockito.AdditionalAnswers.returnsFirstArg;
 import static org.mockito.Mockito.*;
 
+@SuppressWarnings("ConstantConditions")
 @ExtendWith(MockitoExtension.class)
 public class UpdateItemUseCaseTest {
 
@@ -27,13 +29,13 @@ public class UpdateItemUseCaseTest {
     private ItemGateway itemGateway;
 
     @Test
-    @DisplayName("When called update use case should return a valid ID")
-    public void verifyItemReturnedIdWhenCalledUpdateUseCase() {
-        final var aItem = ItemFactory.createItem(
-                "Water",
-                0,
+    @DisplayName("Should return a valid item when created a new Item with valid arguments")
+    public void verifyItemCreationWhenGivenAValidCommand() {
+        final var anItem = ItemFactory.createItem(
+                "Waters",
                 2,
-                ItemCategoryEnum.FOOD
+                2,
+                null
         );
 
         final var expectedItemName = "Crystal Water";
@@ -41,19 +43,18 @@ public class UpdateItemUseCaseTest {
         final var expectedAmount = 2;
         final var expectedCategory = ItemCategoryEnum.DRINK;
 
-
-        final var expectedId = aItem.getId();
+        final var expectedId = anItem.getId();
 
         final var aCommand = UpdateItemCommand.with(
                 expectedId,
-                expectedItemName,
-                expectedPrice,
-                expectedAmount,
-                expectedCategory
+                anItem.getItemName(),
+                anItem.getItemPrice(),
+                anItem.getAmount(),
+                anItem.getItemCategory()
         );
 
         when(itemGateway.findById(eq(expectedId)))
-                .thenReturn(Optional.of(aItem));
+                .thenReturn(Optional.of(anItem));
 
         when(itemGateway.update(any()))
                 .thenAnswer(returnsFirstArg());
@@ -64,8 +65,15 @@ public class UpdateItemUseCaseTest {
         Assertions.assertNotNull(actualOutput.getId());
 
         Mockito.verify(itemGateway, times(1)).findById(eq(expectedId));
-        Mockito.verify(itemGateway, times(1)).update(argThat(anUpdatedItem -> {
 
-        }))
+        Mockito.verify(itemGateway, times(1)).update(argThat(
+                anUpdatedItem ->
+                        Objects.equals(expectedItemName, anItem.getItemName())
+                                && Objects.equals(expectedId, anUpdatedItem.getId())
+                                && Objects.equals(expectedPrice, anUpdatedItem.getItemPrice())
+                                && Objects.equals(expectedAmount, anUpdatedItem.getAmount())
+                                && Objects.equals(expectedCategory, anUpdatedItem.getItemCategory())
+        ));
+
     }
 }

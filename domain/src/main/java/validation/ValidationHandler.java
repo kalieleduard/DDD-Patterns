@@ -1,6 +1,7 @@
 package validation;
 
 import java.util.List;
+import java.util.Objects;
 
 public interface ValidationHandler {
 
@@ -16,7 +17,16 @@ public interface ValidationHandler {
         return getErrors() != null && !(getErrors().isEmpty());
     }
 
+    default Error firstError() {
+        if (Objects.nonNull(getErrors()) && !getErrors().isEmpty()) {
+            return getErrors().get(0);
+        } else {
+            return null;
+        }
+    }
+
     interface Validation {
+
         void validate();
     }
 
