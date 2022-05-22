@@ -4,6 +4,7 @@ import item.entity.ItemCategoryEnum;
 import item.entity.ItemGateway;
 import item.factory.ItemFactory;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,6 +28,11 @@ public class UpdateItemUseCaseTest {
 
     @Mock
     private ItemGateway itemGateway;
+
+    @BeforeEach
+    void cleanUp() {
+        Mockito.reset(this.itemGateway);
+    }
 
     @Test
     @DisplayName("Should return a valid item when created a new Item with valid arguments")
@@ -62,7 +68,7 @@ public class UpdateItemUseCaseTest {
         final var actualOutput = useCase.execute(aCommand).get();
 
         Assertions.assertNotNull(actualOutput);
-        Assertions.assertNotNull(actualOutput.getId());
+        Assertions.assertNotNull(actualOutput.getItemID());
 
         Mockito.verify(itemGateway, times(1)).findById(eq(expectedId));
 

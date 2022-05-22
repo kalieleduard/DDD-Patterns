@@ -5,13 +5,13 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class CreateItemCommand {
     private String name;
     private double price;
     private int amount;
-    private ItemCategoryEnum itemCategory;
+    ItemCategoryEnum itemCategory;
 
     public static CreateItemCommand with(
             final String aName,

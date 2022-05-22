@@ -3,6 +3,7 @@ package item.create;
 import item.entity.ItemCategoryEnum;
 import item.entity.ItemGateway;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,6 +27,11 @@ public class CreateItemUseCaseTest {
 
     @Mock
     private ItemGateway itemGateway;
+
+    @BeforeEach
+    void cleanUp() {
+        Mockito.reset(this.itemGateway);
+    }
 
     @Test
     @DisplayName("Should return a item ID when given a valid command")
