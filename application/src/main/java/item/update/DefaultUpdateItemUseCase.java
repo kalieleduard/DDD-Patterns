@@ -23,12 +23,12 @@ public class DefaultUpdateItemUseCase extends UpdateItemUseCase {
     }
 
     @Override
-    public Either<Notification, UpdateItemOutput> execute(final UpdateItemCommand aCommand) {
-        final var anId = ItemID.from(aCommand.getItemName());
-        final var aName = aCommand.getItemName();
-        final var aPrice = aCommand.getItemPrice();
-        final var anAmount = aCommand.getItemAmount();
-        final var aCategory = aCommand.getItemCategory();
+    public Either<Notification, UpdateItemOutput> execute(final UpdateItemCommand anIn) {
+        final var anId = ItemID.from(anIn.getItemName());
+        final var aName = anIn.getItemName();
+        final var aPrice = anIn.getItemPrice();
+        final var anAmount = anIn.getItemAmount();
+        final var aCategory = anIn.getItemCategory();
 
         final var anItem = this.itemGateway.findById(anId)
                 .orElseThrow(notFound(anId));

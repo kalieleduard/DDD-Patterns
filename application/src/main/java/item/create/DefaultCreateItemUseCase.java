@@ -19,11 +19,11 @@ public class DefaultCreateItemUseCase extends CreateItemUseCase {
     }
 
     @Override
-    public Either<Notification, CreateItemOutput> execute(final CreateItemCommand aCommand) {
-        final var aName = aCommand.getName();
-        final var aPrice = aCommand.getPrice();
-        final var anAmount = aCommand.getAmount();
-        final var aCategory = aCommand.getItemCategory();
+    public Either<Notification, CreateItemOutput> execute(final CreateItemCommand anIn) {
+        final var aName = anIn.getName();
+        final var aPrice = anIn.getPrice();
+        final var anAmount = anIn.getAmount();
+        final var aCategory = anIn.getItemCategory();
 
         final var notification = Notification.create();
 

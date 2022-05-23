@@ -54,11 +54,13 @@ public class GetItemByIdUseCaseTest {
 
         final var actualItem = useCase.execute(expectedId);
 
-        assertEquals(expectedId, actualItem.getId());
-        assertEquals(expectedItemName, actualItem.getName());
-        assertEquals(expectedPrice, actualItem.getPrice());
-        assertEquals(expectedAmount, actualItem.getAmount());
-        assertEquals(expectedCategory, actualItem.getCategory());
+        if (actualItem.isPresent()) {
+            assertEquals(expectedId, actualItem.get().getId());
+            assertEquals(expectedItemName, actualItem.get().getItemName());
+            assertEquals(expectedPrice, actualItem.get().getItemPrice());
+            assertEquals(expectedAmount, actualItem.get().getAmount());
+            assertEquals(expectedCategory, actualItem.get().getItemCategory());
+        }
     }
 
     @Test
