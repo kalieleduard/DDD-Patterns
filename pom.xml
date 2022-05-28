@@ -6,6 +6,7 @@
     <modules>
         <module>domain</module>
         <module>application</module>
+        <module>infrastructure</module>
     </modules>
     <groupId>com.example</groupId>
     <artifactId>DDD-Patterns</artifactId>
@@ -32,6 +33,16 @@
             <artifactId>mockito-junit-jupiter</artifactId>
             <version>4.5.1</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.29</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>2.7.0</version>
         </dependency>
     </dependencies>
 </project>

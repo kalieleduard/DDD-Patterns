@@ -34,12 +34,12 @@ public abstract class AbstractItemEntity extends AggregateRoot<ItemID> implement
         return this;
     }
 
+    public abstract double calculateTaxes();
+
     @Override
     public void validate(final ValidationHandler handler) {
         new ItemValidator(this, handler).validate();
     }
-
-    public abstract double calculateTaxes();
 
     @Override
     public AbstractItemEntity clone() {

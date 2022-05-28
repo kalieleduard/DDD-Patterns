@@ -1,0 +1,18 @@
+version: '3.7'
+
+services:
+  mysql:
+    container_name: ddd_patterns_mysql
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=ddd_patterns
+    security_opt:
+      - seccomp:uncofined
+    ports:
+      - "3306:3306"
+    networks:
+      - ddd_patterns_network
+
+networks:
+  ddd_patterns_network:
