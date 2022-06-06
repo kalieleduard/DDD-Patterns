@@ -6,7 +6,7 @@
     <modules>
         <module>domain</module>
         <module>application</module>
-        <module>infrastructure</module>
+        <module>com.infrastructure</module>
     </modules>
     <groupId>com.example</groupId>
     <artifactId>DDD-Patterns</artifactId>

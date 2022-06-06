@@ -1,6 +1,6 @@
 package com.infrastructure;
 
-import com.infrastructure.configuration.WebServerConfig;
+import com.configuration.WebServerConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.core.env.AbstractEnvironment;
@@ -8,11 +8,7 @@ import org.springframework.core.env.AbstractEnvironment;
 @SpringBootApplication
 public class Main {
     public static void main(String[] args) {
-        config();
+        System.setProperty(AbstractEnvironment.DEFAULT_PROFILES_PROPERTY_NAME, "development");
         SpringApplication.run(WebServerConfig.class, args);
-    }
-
-    private static void config() {
-        System.setProperty(AbstractEnvironment.ACTIVE_PROFILES_PROPERTY_NAME, "development");
     }
 }
